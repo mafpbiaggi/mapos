@@ -8,8 +8,6 @@ schema/
 .gitignore
 
 # Aqruivos visuais customizados
-logo-*.png
-favicon-custom.ico
 assets/uploads/*
 
 # Arquivos do agente de IA

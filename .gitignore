@@ -6,8 +6,6 @@ schema/
 dump*.sql
 
 # Arquivos visuais customizados
-logo-*.png
-favicon-custom.ico
 assets/uploads/*
 
 # Módulo conecte
