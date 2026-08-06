@@ -1,0 +1,19 @@
+# Variáveis de ambiente
+.env
+
+# Possíveis arquivos com dados sensíveis
+schema/
+dump*.sql
+
+# Arquivos visuais customizados
+logo-*.png
+favicon-custom.ico
+assets/uploads/*
+
+# Módulo conecte
+application/controllers/conecte.php
+application/views/conecte
+application/models/conecte_model.php
+
+# Arquivo de instruções legado
+README.md
