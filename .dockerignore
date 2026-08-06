@@ -1,0 +1,24 @@
+# Arquivos de infraestrutura
+docker/
+.dockerignore
+schema/
+
+# Arquivos do repositório
+.git
+.gitignore
+
+# Aqruivos visuais customizados
+logo-*.png
+favicon-custom.ico
+assets/uploads/*
+
+# Arquivos do agente de IA
+.kiro/
+
+# Arquivos de documentação
+README.md
+
+# Arquivos de módulos legados
+application/controllers/conecte.php
+application/views/conecte
+application/models/conecte_model.php

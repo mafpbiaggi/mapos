@@ -1,0 +1,39 @@
+networks:
+  mapos:
+    name: mapos
+
+services:
+  db_mapos:
+    image: mariadb:12.2
+    container_name: db_mapos
+    environment:
+      - TZ=America/Sao_Paulo
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - db_mapos:/var/lib/mysql
+    restart: no
+    networks:
+      - mapos
+  
+  app_mapos:
+    build:
+      context: ${BUILD_CONTEXT}
+      dockerfile: docker/Dockerfile
+    image: app_mapos:1.0
+    container_name: app_mapos
+    env_file:
+      - .env
+    ports:
+      - ${PORT_MAPPING}:80
+    restart: no
+    networks:
+      - mapos
+    depends_on:
+      - db_mapos
+
+volumes:
+  db_mapos:
+    name: db_mapos

@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Bloqueia acesso direto à pasta application
+    RewriteRule ^application - [F,L]
+
+    # Ignora arquivos e diretórios reais
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Redireciona tudo para o index.php do CodeIgniter
+    RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
