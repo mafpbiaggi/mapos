@@ -32,8 +32,8 @@ mapos/
 ├── docker/
 │   ├── .env.example          # Modelo de variáveis de ambiente
 │   ├── Dockerfile
-│   ├── docker-compose.yaml
-│   └── init/                 # Configurações de inicialização do container
+│   └── docker-compose.yaml
+├── init/                     # Configurações de inicialização do container
 ├── docs/                     # Documentação e modelagem do banco
 ├── schema/                   # Schema SQL do banco de dados
 ├── system/                   # Core do CodeIgniter (não editar)
@@ -87,7 +87,7 @@ A aplicação estará disponível em `http://IP_HOST_DOCKER:{PORT_MAPPING}`.
 **4. Importe o schema do banco de dados:**
 
 ```bash
-docker exec -i db_mapos mariadb -u<MYSQL_USER> -p<MYSQL_PASSWORD> <MYSQL_DATABASE> < schema/schema.sql
+docker exec -i db_mapos bash -c 'mariadb -u$MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE < schema/schema.sql'
 ```
 
 **5. Acesse o sistema:**
