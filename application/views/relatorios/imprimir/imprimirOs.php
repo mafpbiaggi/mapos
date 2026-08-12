@@ -1,15 +1,5 @@
-  <head>
-    <title>Relatórios | MapOS</title>    
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="<?php echo base_url();?>css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<?php echo base_url();?>css/bootstrap-responsive.min.css" />
-    <link rel="stylesheet" href="<?php echo base_url();?>css/fullcalendar.css" />
-    <link rel="stylesheet" href="<?php echo base_url();?>css/main.css" />
-    <link rel="stylesheet" href="<?php echo base_url();?>css/blue.css" class="skin-color" />
-    <script type="text/javascript"  src="<?php echo base_url();?>js/jquery-1.10.2.min.js"></script>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 
+<?php $this->load->view('relatorios/imprimir/imprimirHeader'); ?>
   <body style="background-color: transparent">
       <div class="container-fluid">
           <div class="row-fluid">
@@ -52,14 +42,13 @@
       </div>
 </div>
 
-            <!-- Arquivos js-->
-
-            <script src="<?php echo base_url();?>js/excanvas.min.js"></script>
-            <script src="<?php echo base_url();?>js/bootstrap.min.js"></script>
-            <script src="<?php echo base_url();?>js/jquery.flot.min.js"></script>
-            <script src="<?php echo base_url();?>js/jquery.flot.resize.min.js"></script>
-            <script src="<?php echo base_url();?>js/fullcalendar.min.js"></script>
-            <script src="<?php echo base_url();?>js/sosmc.js"></script>
-            <script src="<?php echo base_url();?>js/dashboard.js"></script>
+    <!-- Arquivos js-->
+    <script src="<?php echo base_url();?>js/excanvas.min.js"></script>
+    <script src="<?php echo base_url();?>js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url();?>js/jquery.flot.min.js"></script>
+    <script src="<?php echo base_url();?>js/jquery.flot.resize.min.js"></script>
+    <script src="<?php echo base_url();?>js/fullcalendar.min.js"></script>
+    <script src="<?php echo base_url();?>js/sosmc.js"></script>
+    <script src="<?php echo base_url();?>js/dashboard.js"></script>
   </body>
 </html>
