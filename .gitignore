@@ -1,10 +1,6 @@
 # Variáveis de ambiente
 .env
 
-# Possíveis arquivos com dados sensíveis
-schema/
-dump*.sql
-
 # Arquivos visuais customizados
 assets/uploads/*
 

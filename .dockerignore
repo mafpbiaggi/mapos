@@ -15,6 +15,7 @@ assets/uploads/*
 
 # Arquivos de documentação
 README.md
+LICENSE
 
 # Arquivos de módulos legados
 application/controllers/conecte.php
