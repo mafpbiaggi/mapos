@@ -94,8 +94,8 @@ docker exec -i db_mapos bash -c 'mariadb -u$MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_
 
 ```
 URL:   http://IP_HOST_DOCKER:{PORT_MAPPING}
-Login: 
-Senha: 
+Login: admin@admin.com.br
+Senha: admin
 ```
 
 > **Importante:** altere a senha do usuário administrador imediatamente após o primeiro acesso.
