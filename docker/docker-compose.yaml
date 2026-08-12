@@ -28,6 +28,8 @@ services:
       - .env
     ports:
       - ${PORT_MAPPING}:80
+    volumes:
+      - upload_mapos:/var/www/html/assets/uploads
     restart: no
     networks:
       - mapos
@@ -37,3 +39,5 @@ services:
 volumes:
   db_mapos:
     name: db_mapos
+  upload_mapos:
+    name: upload_mapos
