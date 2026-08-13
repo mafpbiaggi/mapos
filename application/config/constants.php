@@ -43,6 +43,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 */
 
 define ('OS_INDEX', 'index.php/os/');
+define ('CLI_INDEX', 'index.php/clientes/');
 define ('TEMA_TOPO', 'tema/topo');
 
 /* End of file constants.php */
