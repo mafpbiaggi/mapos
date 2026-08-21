@@ -7,14 +7,14 @@ Este documento descreve como implantar o MapOS em um cluster Kubernetes usando o
 - Um cluster Kubernetes disponível
 - `kubectl` instalado e configurado para acessar o cluster
 - Um StorageClass padrão ou PersistentVolumes compatíveis com os PVCs
-- Permissão para criar Secrets, ConfigMaps, StatefulSets, Services e PersistentVolumeClaims
+- Permissão para criar Secrets, ConfigMaps, Deployments, StatefulSets, Services e PersistentVolumeClaims
 
 ## Recursos implantados
 
 Os manifests criam os seguintes recursos:
 
 - MariaDB em um StatefulSet com o nome `mapos-db-stateful`
-- MapOS em um StatefulSet com duas réplicas, chamado `mapos-app-stateful`
+- MapOS em um Deployment com duas réplicas, chamado `mapos-app-deployment`
 - Serviço interno do banco de dados chamado `svc-db`
 - Serviço `NodePort` da aplicação chamado `svc-app`, exposto na porta `30000`
 - PVC `pvc-db` para os dados do MariaDB
@@ -24,7 +24,7 @@ Os manifests criam os seguintes recursos:
 
 ## Configuração dos Secrets
 
-Os StatefulSets esperam um Secret chamado `mapos-secrets` com as chaves:
+O Deployment e StatefulSet esperam um Secret chamado `mapos-secrets` com as chaves:
 
 - `MYSQL_ROOT_PASSWORD`
 - `MYSQL_PASSWORD`
@@ -72,6 +72,7 @@ Confira o estado dos recursos:
 
 ```bash
 kubectl get statefulsets
+kubectl get deployments
 kubectl get pods -l app=mapos-db
 kubectl get pods -l app=mapos-app
 kubectl get services svc-app svc-db
@@ -82,14 +83,14 @@ Aguarde os pods ficarem prontos. Para acompanhar a inicialização:
 
 ```bash
 kubectl rollout status statefulset/mapos-db-stateful
-kubectl rollout status statefulset/mapos-app-stateful
+kubectl rollout status deployment/mapos-app-deployment
 ```
 
 Consulte os logs se algum pod não iniciar:
 
 ```bash
 kubectl logs statefulset/mapos-db-stateful
-kubectl logs statefulset/mapos-app-stateful
+kubectl logs deployment/mapos-app-deployment
 ```
 
 ## Acesso à aplicação
@@ -114,7 +115,7 @@ Após publicar uma nova imagem, atualize a referência em `k8s/app.yaml` e apliq
 
 ```bash
 kubectl apply -f k8s/app.yaml
-kubectl rollout status statefulset/mapos-app-stateful
+kubectl rollout status deployments/mapos-app-deployment
 ```
 
 Evite usar a tag `latest` em ambientes controlados. Prefira tags imutáveis, como `v1.1.0`, para permitir rastreabilidade e rollback.
@@ -142,6 +143,6 @@ Essa operação pode ser destrutiva, dependendo da política de retenção do St
 ## Limitações conhecidas
 
 - O MariaDB está configurado com uma única réplica.
-- Os PVCs usam `ReadWriteOnce`; portanto, a disponibilidade depende do suporte do cluster ao armazenamento configurado.
+- Os PVCs usam `ReadWriteOnce`. Em clusters single-node, múltiplas réplicas no mesmo nó conseguem montar o mesmo volume normalmente. Em clusters multi-node de produção, réplicas agendadas em nodes diferentes falharão ao montar o PVC — este manifesto não oferece alta disponibilidade real de node, apenas escala de processamento em ambiente de nó único. Para HA de fato, seria necessário `ReadWriteMany` ou storage externo (ex: object storage).
 - O serviço da aplicação usa `NodePort`, sem Ingress ou TLS configurados nos manifests atuais.
 - O schema inicial do banco deve estar disponível na imagem ou ser importado conforme o processo de inicialização do ambiente.
