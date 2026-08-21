@@ -1,5 +1,6 @@
 # Arquivos de infraestrutura
 docker/
+k8s/
 .dockerignore
 schema/
 
