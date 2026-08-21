@@ -68,7 +68,7 @@
   "hooks": {
     "agentSpawn": [
       {
-        "command": "echo '=== MaPOS Dev Agent ===' && echo 'PHP:' && php -v 2>/dev/null | head -1 || echo 'PHP não encontrado no host' && echo 'Docker:' && docker --version 2>/dev/null || echo 'Docker não encontrado' && echo 'Arquivos do projeto:' && find /home/suporte/Dados/Projetos/mapos/application -name '*.php' | wc -l | xargs -I{} echo '{} arquivos PHP em application/'"
+        "command": "echo '=== MaPOS Dev Agent ===' && echo 'PHP:' && php -v 2>/dev/null | head -1 || echo 'PHP não encontrado no host' && echo 'Docker:' && docker --version 2>/dev/null || echo 'Docker não encontrado' && echo 'Arquivos do projeto:' && find ./application -name '*.php' | wc -l | xargs -I{} echo '{} arquivos PHP em application/'"
       }
     ]
   },
