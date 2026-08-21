@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mapos-db-stateful
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mapos-db
+  serviceName: svc-db
+  template:
+    metadata:
+      name: mapos-db
+      labels:
+        app: mapos-db
+    spec:
+      containers:
+        - name: mapos-db-container
+          image: mariadb:12.3
+          ports:
+            - name: default-port
+              containerPort: 3306
+          env:
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mapos-configmap
+                  key: MYSQL_DATABASE
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mapos-configmap
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mapos-secrets
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mapos-secrets
+                  key: MYSQL_ROOT_PASSWORD
+          livenessProbe:
+            exec:
+              command:
+                - mariadb-admin
+                - -uroot
+                - -p$MYSQL_ROOT_PASSWORD
+                - ping
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 3
+          volumeMounts:
+            - name: database
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: database
+          persistentVolumeClaim:
+            claimName: pvc-db

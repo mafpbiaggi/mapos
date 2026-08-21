@@ -1,0 +1,24 @@
+# Serviço da aplicação
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-app
+spec:
+  type: NodePort
+  selector:
+    app: mapos-app
+  ports:
+    - port: 80
+      nodePort: 30000
+---  
+# Serviços do banco de dados
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-db
+spec:
+  type: ClusterIP
+  selector:
+    app: mapos-db
+  ports:
+    - port: 3306
