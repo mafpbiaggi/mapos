@@ -4,11 +4,6 @@ Sistema web de gerenciamento de ordens de serviço. Permite controlar OS, client
 
 > **Atenção:** este é um projeto legado em processo de refatoração. A infraestrutura Docker foi adicionada posteriormente ao desenvolvimento original. Consulte a seção [Notas sobre o projeto legado](#notas-sobre-o-projeto-legado) para mais detalhes.
 
-## Requisitos
-
-- Docker
-- Docker Compose
-
 ## Stack
 
 - **Framework:** CodeIgniter (PHP 5.6)
@@ -29,18 +24,23 @@ mapos/
 │   ├── models/               # Models da aplicação
 │   └── views/                # Views organizadas por módulo
 ├── assets/                   # CSS, JS, imagens e uploads
-├── docker/
-│   ├── .env.example          # Modelo de variáveis de ambiente
-│   ├── Dockerfile
-│   └── docker-compose.yaml
-├── init/                     # Configurações de inicialização do container
-├── docs/                     # Documentação e modelagem do banco
+├── docs/                     # Documentação auxiliar
+├── docker/                   # Configurações para uso de docker
+├── k8s/                      # Configurações para uso de kubernetes
+├── init/                     # Configurações específicas para imagem
 ├── schema/                   # Schema SQL do banco de dados
 ├── system/                   # Core do CodeIgniter (não editar)
 └── index.php                 # Ponto de entrada da aplicação
 ```
 
 ## Instalação
+
+> Este projeto está pronto para ser implantado também em um cluster Kubernetes. Veja a [documentação](docs/kubernetes.md) para mais informações.
+
+### Requisitos
+
+- Docker
+- Docker Compose
 
 **1. Clone o repositório:**
 

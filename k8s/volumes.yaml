@@ -1,0 +1,23 @@
+# Volume da aplicação
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-app
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+---
+# Volume do banco de dados
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-db
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+    - ReadWriteOnce

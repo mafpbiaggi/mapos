@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mapos-app-stateful
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mapos-app
+  serviceName: svc-app
+  template:
+    metadata:
+      name: mapos-app
+      labels:
+        app: mapos-app
+    spec:
+      containers:
+        - name: mapos-app-container
+          image: mafpbiaggi/mapos-legacy:v1
+          ports:
+            - name: http-port
+              containerPort: 80
+          env:
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mapos-configmap
+                  key: MYSQL_HOST
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mapos-configmap
+                  key: MYSQL_DATABASE
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mapos-configmap
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mapos-secrets
+                  key: MYSQL_PASSWORD
+            - name: ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mapos-secrets
+                  key: ENCRYPTION_KEY
+          resources:
+            requests:
+              memory: 64Mi
+            limits:
+              memory: 64Mi
+          livenessProbe:
+            httpGet:
+              path: index.php/mapos/login
+              port: http-port
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
+          volumeMounts:
+            - name: uploads
+              mountPath: /var/www/html/assets/uploads
+      volumes:
+        - name: uploads
+          persistentVolumeClaim:
+            claimName: pvc-app
